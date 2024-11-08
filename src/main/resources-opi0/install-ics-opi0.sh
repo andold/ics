@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #
-PROFILE=ics
+PROFILE=opi0
 THIS_SCRIPT_FILE_NAME=install-ics-$PROFILE.sh
 DEPLOY_SCRIPT_FILE_NAME=deploy.sh
 HOME_DIR=/home/andold

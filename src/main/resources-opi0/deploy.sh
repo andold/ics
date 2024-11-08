@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #
-PROFILE=ics
+PROFILE=opi0
 THIS_SCRIPT_FILE_NAME=install-ics-$PROFILE.sh
 HOME_DIR=/home/andold
 SOURCE_DIR=$HOME_DIR/src/github/ics
