@@ -25,8 +25,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Data
 public class VCalendarComponentEntity {
-	public static final java.util.Date DEFAULT_START = Utility.parseDateTime("1900-01-01");
-	public static final java.util.Date DEFAULT_END = Utility.parseDateTime("2200-01-01");
+	public static final Date DEFAULT_START = Utility.parseDateTime("1900-01-01");
+	public static final Date DEFAULT_END = Utility.parseDateTime("2200-01-01");
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

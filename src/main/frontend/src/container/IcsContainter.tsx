@@ -199,9 +199,9 @@ function EventAgGridMode(props: any) {
 			end: null,
 			keyword: form.keyword,
 		};
-		if (form.keyword!.length > 0) {
-			request.start = form.start!.format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-			request.end = form.end!.format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+		if (form.keyword?.length > 0) {
+			request.start = form.start?.format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+			request.end = form.end?.format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
 		} else {
 			request.start = (form.start && form.start.format("YYYY-MM-DDTHH:mm:ss.SSSZZ")) || form.today.clone().date(1).startOf("week").format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
 			request.end = (form.end && form.end.format("YYYY-MM-DDTHH:mm:ss.SSSZZ")) || form.today.clone().add(1, "months").date(1).add(6, "days").startOf("week").format("YYYY-MM-DDTHH:mm:ss.SSSZZ");

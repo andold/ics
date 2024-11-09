@@ -301,7 +301,9 @@ public class IcsService {
 			from = new DateTime(IcsComponentDomain.DEFAULT_START);
 			to = new DateTime(IcsComponentDomain.DEFAULT_END);
 		} else {
-			entities = vcalendarComponentRepository.search(param);
+			param.prepareForSearch();
+//			entities = vcalendarComponentRepository.search(param);
+			entities = vcalendarComponentRepository.findAllByContentContainsAndVcalendarIdAndEndGreaterThanEqualAndStartLessThan(param.getKeyword(), param.getVcalendarId(), param.getStart(), param.getEnd());
 			from = new DateTime(param.getStart() == null ? IcsComponentDomain.DEFAULT_START : param.getStart());
 			to = new DateTime(param.getEnd() == null ? IcsComponentDomain.DEFAULT_END : param.getEnd());
 		}

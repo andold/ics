@@ -20,7 +20,6 @@ public class IcsParam extends IcsComponentDomain {
 	private String description;
 
 	// component
-	private Integer vcalendarId;
 	private String keyword;
 
 	private List<IcsComponentDomain> creates;
@@ -36,6 +35,20 @@ public class IcsParam extends IcsComponentDomain {
 
 	public String toString(int size) {
 		return Utility.ellipsis(toString(),  size);
+	}
+
+	public IcsParam prepareForSearch() {
+		if (getKeyword() == null) {
+			setKeyword("");
+		}
+		if (getStart() == null) {
+			setStart(DEFAULT_START);
+		}
+		if (getEnd() == null) {
+			setEnd(DEFAULT_END);
+		}
+
+		return this;
 	}
 
 }

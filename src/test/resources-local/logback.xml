@@ -38,7 +38,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="org" additivity="false" level="warn">
+	<logger name="org.hibernate.SQL" additivity="false" level="warn">
 		<appender-ref ref="console" />
 		<appender-ref ref="ics" />
 	</logger>
