@@ -1,4 +1,4 @@
-package kr.anold.ics.service;
+package kr.andold.ics.service;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -19,14 +19,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.transaction.Transactional;
+import kr.andold.ics.domain.IcsCalendarDomain;
+import kr.andold.ics.domain.IcsComponentDomain;
+import kr.andold.ics.domain.IcsParam;
+import kr.andold.ics.entity.VCalendarComponentEntity;
+import kr.andold.ics.entity.VCalendarEntity;
+import kr.andold.ics.repository.VCalendarComponentRepository;
+import kr.andold.ics.repository.VCalendarRepository;
 import kr.andold.utils.Utility;
-import kr.anold.ics.domain.IcsCalendarDomain;
-import kr.anold.ics.domain.IcsComponentDomain;
-import kr.anold.ics.domain.IcsParam;
-import kr.anold.ics.entity.VCalendarComponentEntity;
-import kr.anold.ics.entity.VCalendarEntity;
-import kr.anold.ics.repository.VCalendarComponentRepository;
-import kr.anold.ics.repository.VCalendarRepository;
 import lombok.extern.slf4j.Slf4j;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;

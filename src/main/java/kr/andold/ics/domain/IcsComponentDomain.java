@@ -1,4 +1,4 @@
-package kr.anold.ics.domain;
+package kr.andold.ics.domain;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -14,8 +14,8 @@ import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import kr.andold.ics.entity.VCalendarComponentEntity;
 import kr.andold.utils.Utility;
-import kr.anold.ics.entity.VCalendarComponentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

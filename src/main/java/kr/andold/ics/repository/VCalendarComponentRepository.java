@@ -1,4 +1,4 @@
-package kr.anold.ics.repository;
+package kr.andold.ics.repository;
 
 import java.util.Date;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import kr.anold.ics.domain.IcsParam;
-import kr.anold.ics.entity.VCalendarComponentEntity;
+import kr.andold.ics.domain.IcsParam;
+import kr.andold.ics.entity.VCalendarComponentEntity;
 
 @Repository
 public interface VCalendarComponentRepository extends JpaRepository<VCalendarComponentEntity, Integer> {

@@ -1,4 +1,4 @@
-package kr.anold.ics.entity;
+package kr.andold.ics.entity;
 
 import java.util.Date;
 

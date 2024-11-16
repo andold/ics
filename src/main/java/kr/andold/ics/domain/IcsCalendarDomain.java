@@ -1,8 +1,8 @@
-package kr.anold.ics.domain;
+package kr.andold.ics.domain;
 
 import org.springframework.beans.BeanUtils;
 
-import kr.anold.ics.entity.VCalendarEntity;
+import kr.andold.ics.entity.VCalendarEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

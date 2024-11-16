@@ -1,4 +1,4 @@
-package kr.anold.ics;
+package kr.andold.ics;
 
 import java.util.TimeZone;
 

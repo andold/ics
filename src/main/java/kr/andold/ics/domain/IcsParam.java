@@ -1,4 +1,4 @@
-package kr.anold.ics.domain;
+package kr.andold.ics.domain;
 
 import java.util.List;
 

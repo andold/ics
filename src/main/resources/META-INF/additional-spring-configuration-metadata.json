@@ -1,5 +1,12 @@
-{"properties": [{
-  "name": "data.path",
-  "type": "java.lang.String",
-  "description": "A description for 'data.path'"
-}]}
+{"properties": [
+  {
+    "name": "data.path",
+    "type": "java.lang.String",
+    "description": "A description for 'data.path'"
+  },
+  {
+    "name": "app.scheduling.enable",
+    "type": "java.lang.String",
+    "description": "A description for 'app.scheduling.enable'"
+  }
+]}

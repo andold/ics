@@ -1,4 +1,4 @@
-package kr.anold.ics.controller;
+package kr.andold.ics.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -18,11 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletResponse;
+import kr.andold.ics.ScheduledTasks;
+import kr.andold.ics.domain.IcsCalendarDomain;
+import kr.andold.ics.domain.IcsComponentDomain;
+import kr.andold.ics.domain.IcsParam;
+import kr.andold.ics.service.IcsService;
+import kr.andold.ics.service.JobService;
+import kr.andold.ics.service.JobService.BackupJob;
+import kr.andold.ics.service.JobService.Job;
 import kr.andold.utils.Utility;
-import kr.anold.ics.domain.IcsCalendarDomain;
-import kr.anold.ics.domain.IcsComponentDomain;
-import kr.anold.ics.domain.IcsParam;
-import kr.anold.ics.service.IcsService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -113,6 +117,17 @@ public class ApiIcsController {
 
 		log.info("{} #{} - delete({}) - {}", Utility.indentEnd(), removed, id, Utility.toStringPastTimeReadable(started));
 		return removed;
+	}
+
+	@GetMapping(value = "backup")
+	public void backup() {
+		log.info("{} backup()", Utility.indentStart());
+
+		String dataPath = ScheduledTasks.getDataPath();
+		Job job = BackupJob.builder().dataPath(dataPath).build();
+		JobService.getQueue1().offer(job);
+
+		log.info("{} 『{}:{}』 backup()", Utility.indentEnd(), dataPath, job);
 	}
 
 }

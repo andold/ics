@@ -1,25 +1,23 @@
-package kr.anold.ics;
+package kr.andold.ics;
 
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import kr.andold.ics.service.JobService;
+import kr.andold.ics.service.JobService.BackupJob;
+import kr.andold.ics.service.JobService.Job;
 import kr.andold.utils.Utility;
-import kr.anold.ics.service.JobService;
-import kr.anold.ics.service.JobService.BackupJob;
-import kr.anold.ics.service.JobService.Job;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
 @EnableScheduling
-@ConditionalOnProperty(value = "app.scheduling.enable", havingValue = "true", matchIfMissing = true)
 public class ScheduledTasks {
 	@Autowired private JobService jobService;
 
@@ -35,14 +33,31 @@ public class ScheduledTasks {
 		}
 	}
 
-	@Scheduled(initialDelay = 1000 * 10, fixedDelay = Long.MAX_VALUE)
-	public void scheduleTaskOnce() {
+	@Getter private static Boolean appSchedulingEnable = true;
+	@Value("${app.scheduling.enable}")
+	public void setAppSchedulingEnable(Boolean appSchedulingEnable) {
+		ScheduledTasks.appSchedulingEnable = appSchedulingEnable;
+	}
+
+	// 매초마다
+	@Scheduled(fixedDelay = 1000, initialDelay = 1000 * 8)
+	public void scheduleTaskEverySeconds() {
 		jobService.run();
+	}
+
+	// 매분마다
+	@Scheduled(cron = "0 * * * * *")
+	public void scheduleTaskEveryMinutes() {
+		jobService.status();
 	}
 
 	// 매일
 	@Scheduled(cron = "0 0 0 * * *")
 	public void scheduleTaskEveryDays() {
+		if (!getAppSchedulingEnable()) {
+			return;
+		}
+
 		Job job = BackupJob.builder().dataPath(dataPath).build();
 		JobService.getQueue3().offer(job);
 	}

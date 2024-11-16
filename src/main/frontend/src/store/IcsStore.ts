@@ -46,6 +46,9 @@ class IcsStore {
 	deduplicate(request?: any, onSuccess?: any, onError?: any, element?: any) {
 		repository.deduplicate(request, onSuccess, onError, element);
 	}
+	backup(request?: any, onSuccess?: any, onError?: any, element?: any) {
+		repository.backup(request, onSuccess, onError, element);
+	}
 
 
 	//	utils

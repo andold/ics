@@ -1,7 +1,7 @@
 import { AgGridReact } from "ag-grid-react";
 import moment, { Moment } from "moment";
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { Accordion, Button, CloseButton, Col, Form, InputGroup, Modal, Popover, Row, Spinner } from "react-bootstrap";
+import { Accordion, Button, CloseButton, Col, Dropdown, Form, InputGroup, Modal, Popover, Row, Spinner } from "react-bootstrap";
 import DragAndDropFile from "../view/DragAndDropFile";
 
 // domain
@@ -464,6 +464,15 @@ function Header(props: any) {
 			)}
 			<Col xs="auto" className="">
 				<InputGroup size="sm">
+					<Dropdown>
+						<Dropdown.Toggle id="dropdown-basic">메뉴</Dropdown.Toggle>
+						<Dropdown.Menu>
+							<Dropdown.Item onClick={(param: any) => {
+								store.backup();
+							}}>백업</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+
 					<Button size="sm" variant="secondary" className="ms-1" title={form.mode.toString()} onClick={handleOnClickCreateCalendar}>만들기</Button>
 					<Button size="sm" variant="secondary" className="ms-1" title={form.mode.toString()} onClick={(_: any) => setShowUploadModal(true)}>올리기</Button>
 					<Button size="sm" variant="secondary" className="ms-1" title={form.mode.toString()} onClick={handleOnClickDownload}>다운로드</Button>
