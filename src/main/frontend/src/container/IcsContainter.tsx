@@ -151,8 +151,8 @@ function EventCalendarMode(props: any) {
 
 		store.search({
 			vcalendarId: form.vcalendarId,
-			start: start.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"),
-			end: end.format("YYYY-MM-DDTHH:mm:ss.SSSZZ"),
+			start: start.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+			end: end.format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
 		}, (_: any, result: any) => setEvents(result));
 		return function() { setEvents([]); };
 	}, [form]);
@@ -200,11 +200,11 @@ function EventAgGridMode(props: any) {
 			keyword: form.keyword,
 		};
 		if (form.keyword?.length > 0) {
-			request.start = form.start?.format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-			request.end = form.end?.format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+			request.start = form.start?.format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+			request.end = form.end?.format("YYYY-MM-DDTHH:mm:ss.SSSZ");
 		} else {
-			request.start = (form.start && form.start.format("YYYY-MM-DDTHH:mm:ss.SSSZZ")) || form.today.clone().date(1).startOf("week").format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
-			request.end = (form.end && form.end.format("YYYY-MM-DDTHH:mm:ss.SSSZZ")) || form.today.clone().add(1, "months").date(1).add(6, "days").startOf("week").format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
+			request.start = (form.start && form.start.format("YYYY-MM-DDTHH:mm:ss.SSSZ")) || form.today.clone().date(1).startOf("week").format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+			request.end = (form.end && form.end.format("YYYY-MM-DDTHH:mm:ss.SSSZ")) || form.today.clone().add(1, "months").date(1).add(6, "days").startOf("week").format("YYYY-MM-DDTHH:mm:ss.SSSZ");
 		}
 		store.search(request, (_: any, result: any) => setRowData(result));
 		return function() { setRowData([]); };
