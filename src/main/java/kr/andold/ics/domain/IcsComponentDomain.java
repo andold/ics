@@ -2,6 +2,7 @@ package kr.andold.ics.domain;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.ParseException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,10 +14,12 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.usingsky.calendar.KoreanLunarCalendar;
 
 import kr.andold.ics.entity.VCalendarComponentEntity;
 import kr.andold.utils.Utility;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,6 +52,7 @@ public class IcsComponentDomain extends VCalendarComponentEntity {
 	private String name;
 	private String summary;
 	private String location;
+	@Builder.Default private Boolean lunar = false;
 	private List<LocalPeriod> periods;
 	@JsonIgnore
 	private CalendarComponent component;
@@ -200,25 +204,85 @@ public class IcsComponentDomain extends VCalendarComponentEntity {
 			}
 		}
 
+		Property propertyLunar = component.getProperty("X-NAVER-LUNAR-DATE");
+		domain.setLunar(propertyLunar != null && Boolean.parseBoolean(propertyLunar.getValue()));
+
 		return domain;
 	}
 
 	public void periods(DateTime from, DateTime to) {
+		log.trace("{} periods(『{}』, 『{}』)", Utility.indentStart(), from, to);
+		long started = System.currentTimeMillis();
+
 		if (component == null) {
+			log.trace("{} 『NULL component』 periods(『{}』, 『{}』) - 『{}』", Utility.indentEnd(), from, to, Utility.toStringPastTimeReadable(started));
 			return;
+		}
+
+		if (getLunar()) {
+			try {
+				KoreanLunarCalendar lcalendar = KoreanLunarCalendar.getInstance();
+				java.util.Calendar scalendar = java.util.Calendar.getInstance();
+				scalendar.setTime(from);
+				lcalendar.setSolarDate(scalendar.get(java.util.Calendar.YEAR), scalendar.get(java.util.Calendar.MONTH) + 1, scalendar.get(java.util.Calendar.DAY_OF_MONTH));
+				DateTime startLunarDateTime = new DateTime(lcalendar.getLunarIsoFormat());
+
+				java.util.Calendar ecalendar = java.util.Calendar.getInstance();
+				ecalendar.setTime(to);
+				lcalendar.setSolarDate(ecalendar.get(java.util.Calendar.YEAR), ecalendar.get(java.util.Calendar.MONTH) + 1, ecalendar.get(java.util.Calendar.DAY_OF_MONTH));
+				DateTime endLunarDateTime = new DateTime(lcalendar.getLunarIsoFormat());
+
+				Period lunarPeriod = new Period(startLunarDateTime, endLunarDateTime);
+				PeriodList lunarPeriods = component.calculateRecurrenceSet(lunarPeriod);
+
+				if (lunarPeriods == null) {
+					log.trace("{} 『NULL periods』 periods(『{}』, 『{}』) - 『{}』", Utility.indentEnd(), from, to, Utility.toStringPastTimeReadable(started));
+					return;
+				}
+
+				List<LocalPeriod> list = new ArrayList<>();
+				setPeriods(list);
+				for (Period p : lunarPeriods) {
+					java.util.Calendar pscalendar = java.util.Calendar.getInstance();
+					pscalendar.setTime(p.getStart());
+					java.util.Calendar pecalendar = java.util.Calendar.getInstance();
+					pecalendar.setTime(p.getEnd());
+
+					lcalendar.setLunarDate(ecalendar.get(java.util.Calendar.YEAR), pscalendar.get(java.util.Calendar.MONTH) + 1, pscalendar.get(java.util.Calendar.DAY_OF_MONTH), false);
+					String start = lcalendar.getSolarIsoFormat();
+
+					lcalendar.setLunarDate(ecalendar.get(java.util.Calendar.YEAR), pecalendar.get(java.util.Calendar.MONTH) + 1, pecalendar.get(java.util.Calendar.DAY_OF_MONTH), false);
+					String end = lcalendar.getSolarIsoFormat();
+
+					LocalPeriod localPeriod = new LocalPeriod(start, end);
+					list.add(localPeriod);
+
+					log.info("{} {} 『{} ~ {}』『{} ~ {}』『{} ~ {}』『{} ~ {}』", Utility.indentMiddle()
+							, getSummary(), from, to, startLunarDateTime, endLunarDateTime, p.getStart(), p.getEnd(), start, end);
+				}
+
+				log.trace("{} 『SUCCESS』 periods(『{}』, 『{}』) - 『{}』", Utility.indentEnd(), from, to, Utility.toStringPastTimeReadable(started));
+				return;
+			} catch (ParseException e) {
+				log.error("ParseException:: {}", e.getLocalizedMessage(), e);
+			}
 		}
 
 		Period period = new Period(from, to);
 		PeriodList periods = component.calculateRecurrenceSet(period);
 		if (periods == null) {
+			log.trace("{} 『NULL periods』 periods(『{}』, 『{}』) - 『{}』", Utility.indentEnd(), from, to, Utility.toStringPastTimeReadable(started));
 			return;
 		}
 
 		List<LocalPeriod> list = new ArrayList<>();
 		setPeriods(list);
 		for (Period p : periods) {
-			list.add(new LocalPeriod(p.getStart().toString(), p.getEnd().toString()));
+			LocalPeriod localPeriod = new LocalPeriod(p.getStart().toString(), p.getEnd().toString());
+			list.add(localPeriod);
 		}
+
+		log.trace("{} 『SUCCESS』 periods(『{}』, 『{}』) - 『{}』", Utility.indentEnd(), from, to, Utility.toStringPastTimeReadable(started));
 	}
 
 	public Date getDateEnd() {
