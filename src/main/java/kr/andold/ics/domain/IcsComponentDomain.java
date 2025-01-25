@@ -2,7 +2,6 @@ package kr.andold.ics.domain;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.text.ParseException;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -225,16 +224,14 @@ public class IcsComponentDomain extends VCalendarComponentEntity {
 				java.util.Calendar scalendar = java.util.Calendar.getInstance();
 				scalendar.setTime(from);
 				lcalendar.setSolarDate(scalendar.get(java.util.Calendar.YEAR), scalendar.get(java.util.Calendar.MONTH) + 1, scalendar.get(java.util.Calendar.DAY_OF_MONTH));
-				DateTime startLunarDateTime = new DateTime(lcalendar.getLunarIsoFormat());
+				DateTime startLunarDateTime = new DateTime(Utility.parseDateTime(lcalendar.getLunarIsoFormat()));
 
 				java.util.Calendar ecalendar = java.util.Calendar.getInstance();
 				ecalendar.setTime(to);
 				lcalendar.setSolarDate(ecalendar.get(java.util.Calendar.YEAR), ecalendar.get(java.util.Calendar.MONTH) + 1, ecalendar.get(java.util.Calendar.DAY_OF_MONTH));
-				DateTime endLunarDateTime = new DateTime(lcalendar.getLunarIsoFormat());
+				DateTime endLunarDateTime = new DateTime(Utility.parseDateTime(lcalendar.getLunarIsoFormat()));
 
-				Period lunarPeriod = (startLunarDateTime.after(endLunarDateTime))
-						? new Period(endLunarDateTime, startLunarDateTime)
-						: new Period(startLunarDateTime, endLunarDateTime);
+				Period lunarPeriod = new Period(startLunarDateTime, endLunarDateTime);
 				PeriodList lunarPeriods = component.calculateRecurrenceSet(lunarPeriod);
 
 				if (lunarPeriods == null) {
@@ -250,10 +247,10 @@ public class IcsComponentDomain extends VCalendarComponentEntity {
 					java.util.Calendar pecalendar = java.util.Calendar.getInstance();
 					pecalendar.setTime(p.getEnd());
 
-					lcalendar.setLunarDate(ecalendar.get(java.util.Calendar.YEAR), pscalendar.get(java.util.Calendar.MONTH) + 1, pscalendar.get(java.util.Calendar.DAY_OF_MONTH), false);
+					lcalendar.setLunarDate(pscalendar.get(java.util.Calendar.YEAR), pscalendar.get(java.util.Calendar.MONTH) + 1, pscalendar.get(java.util.Calendar.DAY_OF_MONTH), false);
 					String start = lcalendar.getSolarIsoFormat();
 
-					lcalendar.setLunarDate(ecalendar.get(java.util.Calendar.YEAR), pecalendar.get(java.util.Calendar.MONTH) + 1, pecalendar.get(java.util.Calendar.DAY_OF_MONTH), false);
+					lcalendar.setLunarDate(pecalendar.get(java.util.Calendar.YEAR), pecalendar.get(java.util.Calendar.MONTH) + 1, pecalendar.get(java.util.Calendar.DAY_OF_MONTH), false);
 					String end = lcalendar.getSolarIsoFormat();
 
 					LocalPeriod localPeriod = new LocalPeriod(start, end);
@@ -265,8 +262,8 @@ public class IcsComponentDomain extends VCalendarComponentEntity {
 
 				log.trace("{} 『SUCCESS』 periods(『{}』, 『{}』) - 『{}』", Utility.indentEnd(), from, to, Utility.toStringPastTimeReadable(started));
 				return;
-			} catch (ParseException e) {
-				log.error("ParseException:: {}", e.getLocalizedMessage(), e);
+			} catch (Exception e) {
+				log.error("Exception:: {}", e.getLocalizedMessage(), e);
 			}
 		}
 
