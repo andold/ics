@@ -232,7 +232,9 @@ public class IcsComponentDomain extends VCalendarComponentEntity {
 				lcalendar.setSolarDate(ecalendar.get(java.util.Calendar.YEAR), ecalendar.get(java.util.Calendar.MONTH) + 1, ecalendar.get(java.util.Calendar.DAY_OF_MONTH));
 				DateTime endLunarDateTime = new DateTime(lcalendar.getLunarIsoFormat());
 
-				Period lunarPeriod = new Period(startLunarDateTime, endLunarDateTime);
+				Period lunarPeriod = (startLunarDateTime.after(endLunarDateTime))
+						? new Period(endLunarDateTime, startLunarDateTime)
+						: new Period(startLunarDateTime, endLunarDateTime);
 				PeriodList lunarPeriods = component.calculateRecurrenceSet(lunarPeriod);
 
 				if (lunarPeriods == null) {
