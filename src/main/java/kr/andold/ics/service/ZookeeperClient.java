@@ -92,8 +92,8 @@ public class ZookeeperClient implements Watcher {
 			case SyncConnected:
 				try {
 					zookeeper.addWatch(userZookeeperZnodeElectPath, this, AddWatchMode.PERSISTENT);
-					zookeeper.create("/elect-ics", new byte[] {}, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-					zookeeper.create("/test/elect-ics", new byte[] {}, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+//					zookeeper.create("/elect-ics", new byte[] {}, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+//					zookeeper.create("/test/elect-ics", new byte[] {}, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 					String zNodeFullPath = zookeeper.create(userZookeeperZnodeElectPath + "/" + ZNODE_PREFIX, new byte[] {}, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
 					currentZNodeName = zNodeFullPath.replace(userZookeeperZnodeElectPath + "/", "");
 				} catch (KeeperException e) {

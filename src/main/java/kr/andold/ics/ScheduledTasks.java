@@ -5,9 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import kr.andold.ics.service.BackupJob;
 import kr.andold.ics.service.IcsService;
 import kr.andold.ics.service.JobService;
-import kr.andold.ics.service.JobService.BackupJob;
 import kr.andold.ics.service.ZookeeperClient;
 import kr.andold.utils.Utility;
 import lombok.extern.slf4j.Slf4j;

@@ -21,9 +21,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.andold.ics.domain.IcsCalendarDomain;
 import kr.andold.ics.domain.IcsComponentDomain;
 import kr.andold.ics.domain.IcsParam;
+import kr.andold.ics.service.BackupJob;
 import kr.andold.ics.service.IcsService;
 import kr.andold.ics.service.JobService;
-import kr.andold.ics.service.JobService.BackupJob;
 import kr.andold.utils.Utility;
 import lombok.extern.slf4j.Slf4j;
 
