@@ -2,13 +2,15 @@
 @REM
 @REM profile n100 postgres
 @REM
-SET PROFILE=n100
-SET INSTALL_SCRIPT_FILE_NAME=install-ics-%PROFILE%.bat
-SET DEPLOY_SCRIPT_FILE_NAME=deploy.bat
-SET SOURCE_DIR=C:\src\github\ics
-SET DEPLOY_DIR=C:\deploy\ics
-SET APACHE_TOMCAT=tomcat10
-SET LC_ALL=ko_KR.UTF-8
+@SET PROJECT=ics
+@SET VERSION=0.0.1-SNAPSHOT
+@SET PROFILE=n100
+@SET INSTALL_SCRIPT_FILE_NAME=install-%PROJECT%-%PROFILE%.bat
+@SET DEPLOY_SCRIPT_FILE_NAME=deploy.bat
+@SET SOURCE_DIR=C:\src\github\%PROJECT%
+@SET DEPLOY_DIR=C:\deploy\%PROJECT%
+@SET APACHE_TOMCAT=tomcat10
+@SET LC_ALL=ko_KR.UTF-8
 @REM
 @REM
 @REM start
@@ -28,7 +30,7 @@ CALL gradlew.bat clean -Pprofile=%PROFILE% -x test
 @REM react npm install
 @REM
 cd %SOURCE_DIR%\src\main\frontend
-CALL npm install
+CALL npm install --force
 CALL npm audit fix --force
 CALL npm install react-scripts@latest --save
 @REM
@@ -49,7 +51,7 @@ TIMEOUT 4
 @REM
 CD  %DEPLOY_DIR%\doc_base
 DEL  /F /S /Q * > nul
-jar  -xf %SOURCE_DIR%\build\libs\ics-0.0.1-SNAPSHOT.war
+jar  -xf %SOURCE_DIR%\build\libs\%PROJECT%-%VERSION%.war
 @REM
 @REM
 @REM build

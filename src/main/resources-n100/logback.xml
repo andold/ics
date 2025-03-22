@@ -5,7 +5,7 @@
 
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<Pattern>L%d{yyyy-MM-dd HH:mm:ss} [%-5level] %-32.32logger{32} :%4line %msg%n</Pattern>
+			<Pattern>L%d{yyyy-MM-dd HH:mm:ss} [%-5level] %-40.40logger{40} :%4line %msg%n</Pattern>
 		</encoder>
 	</appender>
 	<appender name="general" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -31,13 +31,12 @@
 			<maxFileSize>4MB</maxFileSize>
 		</triggeringPolicy>
 		<encoder>
-			<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %-32.32logger{32} :%4line %msg%n</Pattern>
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %-40.40logger{40} :%4line %msg%n</Pattern>
 		</encoder>
 	</appender>
 
 	<logger name="kr.andold.ics" additivity="false" level="debug">
 		<appender-ref ref="ics" />
-		<appender-ref ref="general" />
 	</logger>
 
 	<logger name="org" additivity="false" level="warn">
@@ -46,7 +45,6 @@
 
 	<root>
 		<level value="warn" />
-		<appender-ref ref="ics" />
 		<appender-ref ref="general" />
 	</root>
 

@@ -1,11 +1,13 @@
 #!/bin/bash
 #
 #
-PROFILE=opi5
-THIS_SCRIPT_FILE_NAME=install-ics-$PROFILE.sh
+PROJECT=ics
+VERSION=0.0.1-SNAPSHOT
+PROFILE=linux
+THIS_SCRIPT_FILE_NAME=install-$PROJECT-$PROFILE.sh
 HOME_DIR=/home/andold
-SOURCE_DIR=$HOME_DIR/src/github/ics
-DEPLOY_DIR=$HOME_DIR/deploy/ics
+SOURCE_DIR=$HOME_DIR/src/github/$PROJECT
+DEPLOY_DIR=$HOME_DIR/deploy/$PROJECT
 TOMCAT_BIN_DIR=$HOME_DIR/apps/tomcat/bin
 #
 #
@@ -97,7 +99,7 @@ cd	$DEPLOY_DIR/doc_base
 rm -fr *
 #
 #
-FILE_NAME_WAR=$SOURCE_DIR/build/libs/ics-0.0.1-SNAPSHOT.war
+FILE_NAME_WAR=$SOURCE_DIR/build/libs/$PROJECT-$VERSION.war
 echo "Extract files from in $FILE_NAME_WAR"
 jar -xf $FILE_NAME_WAR
 #

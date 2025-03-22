@@ -46,11 +46,9 @@ repositories {
 }
 
 dependencies {
-	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	implementation("org.apache.zookeeper:zookeeper:3.9.3")
 	implementation("org.postgresql:postgresql:42.7.4")
-
-	implementation("kr.andold:utils:0.0.4")
-
+	implementation("kr.andold:utils:0.0.6-SNAPSHOT")
  	implementation("com.github.usingsky:KoreanLunarCalendar:0.3.1")
  	implementation("org.mnode.ical4j:ical4j:3.2.10")
 

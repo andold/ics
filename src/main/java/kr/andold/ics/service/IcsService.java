@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,7 @@ import kr.andold.ics.entity.VCalendarEntity;
 import kr.andold.ics.repository.VCalendarComponentRepository;
 import kr.andold.ics.repository.VCalendarRepository;
 import kr.andold.utils.Utility;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
@@ -46,6 +48,28 @@ public class IcsService {
 	@Autowired
 	private VCalendarRepository vcalendarRepository;
 
+	@Getter private static String userDataPath;
+	@Value("${user.data.path}")
+	public void setUserDataPath(String value) {
+		log.info("{} setUserDataPath(『{}』)", Utility.indentMiddle(), value);
+		userDataPath = value;
+	}
+
+	@Getter private static String userSeleniumWebdriverChromeDriver;
+	@Value("${user.selenium.webdriver.chrome.driver}")
+	public void setUserSeleniumWebdriverChromeDriver(String value) {
+		log.info("{} setUserSeleniumWebdriverChromeDriver(『{}』)", Utility.indentMiddle(), value);
+		userSeleniumWebdriverChromeDriver = value;
+	}
+
+	@Getter private static String userSeleniumUserDataDir;
+	@Value("${user.selenium.user.data.dir}")
+	public void setUserSeleniumUserDataDir(String value) {
+		log.info("{} setUserSeleniumUserDataDir(『{}』)", Utility.indentMiddle(), value);
+		userSeleniumUserDataDir = value;
+	}
+
+	
 	public IcsParam upload(MultipartFile file, Integer vcalendarId) {
 		log.info("{} upload({})", Utility.indentStart(), Utility.toStringJson(file, 64));
 		long started = System.currentTimeMillis();

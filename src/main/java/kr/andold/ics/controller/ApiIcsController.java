@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletResponse;
-import kr.andold.ics.ScheduledTasks;
 import kr.andold.ics.domain.IcsCalendarDomain;
 import kr.andold.ics.domain.IcsComponentDomain;
 import kr.andold.ics.domain.IcsParam;
 import kr.andold.ics.service.IcsService;
 import kr.andold.ics.service.JobService;
 import kr.andold.ics.service.JobService.BackupJob;
-import kr.andold.ics.service.JobService.Job;
 import kr.andold.utils.Utility;
 import lombok.extern.slf4j.Slf4j;
 
@@ -123,11 +121,9 @@ public class ApiIcsController {
 	public void backup() {
 		log.info("{} backup()", Utility.indentStart());
 
-		String dataPath = ScheduledTasks.getDataPath();
-		Job job = BackupJob.builder().dataPath(dataPath).build();
-		JobService.getQueue1().offer(job);
+		JobService.getQueue1().offer(BackupJob.builder().dataPath(IcsService.getUserDataPath()).build());
 
-		log.info("{} 『{}:{}』 backup()", Utility.indentEnd(), dataPath, job);
+		log.info("{} backup()", Utility.indentEnd());
 	}
 
 }
