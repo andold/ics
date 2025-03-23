@@ -19,7 +19,7 @@ public class ScheduledTasks {
 	@Autowired private JobService jobService;
 	@Autowired private ZookeeperClient zookeeperClient;
 
-	@Scheduled(initialDelay = 1000 * 8, fixedDelay = Long.MAX_VALUE)
+	@Scheduled(initialDelay = 1000 * 4, fixedDelay = Long.MAX_VALUE)
 	public void once() {
 		log.info("{} once()", Utility.indentStart());
 		long started = System.currentTimeMillis();

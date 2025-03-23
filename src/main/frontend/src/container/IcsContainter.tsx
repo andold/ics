@@ -470,6 +470,9 @@ function Header(props: any) {
 							<Dropdown.Item onClick={(param: any) => {
 								store.backup();
 							}}>백업</Dropdown.Item>
+							<Dropdown.Item onClick={(param: any) => {
+								store.crawlNaver({});
+							}}>크롤 네이버</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
 

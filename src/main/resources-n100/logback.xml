@@ -39,10 +39,6 @@
 		<appender-ref ref="ics" />
 	</logger>
 
-	<logger name="org" additivity="false" level="warn">
-		<appender-ref ref="general" />
-	</logger>
-
 	<root>
 		<level value="warn" />
 		<appender-ref ref="general" />

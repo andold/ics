@@ -22,6 +22,7 @@ import kr.andold.ics.domain.IcsCalendarDomain;
 import kr.andold.ics.domain.IcsComponentDomain;
 import kr.andold.ics.domain.IcsParam;
 import kr.andold.ics.service.BackupJob;
+import kr.andold.ics.service.CrawlNaverJob;
 import kr.andold.ics.service.IcsService;
 import kr.andold.ics.service.JobService;
 import kr.andold.utils.Utility;
@@ -32,6 +33,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("api")
 public class ApiIcsController {
 	@Autowired private IcsService service;
+
+	@GetMapping(value = {"crawl/naver"})
+	public void crawlNaver(@RequestBody(required = false) IcsParam param) {
+		log.info("{} crawlNaver({})", Utility.indentStart(), param);
+
+		JobService.getQueue1().offer(CrawlNaverJob.builder().build());
+		
+		log.info("{} crawlNaver({})", Utility.indentEnd(), param);
+	}
 
 	@PostMapping(value = {"calendar"})
 	public IcsCalendarDomain createCalendar(@RequestBody IcsCalendarDomain param) {

@@ -12,6 +12,9 @@ class IcsStore {
 		makeAutoObservable(this);
 	}
 
+	crawlNaver(request?: any, onSuccess?: any, onError?: any, element?: any) {
+		repository.crawlNaver(request, onSuccess, onError, element);
+	}
 	createCalendar(request: any, onSuccess?: any, onError?: any, element?: any) {
 		repository.createCalendar(request, onSuccess, onError, element);
 	}

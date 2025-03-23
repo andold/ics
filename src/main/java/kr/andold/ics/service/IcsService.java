@@ -99,7 +99,7 @@ public class IcsService {
 		return (IcsParam)result;
 	}
 
-	private IcsParam differ(Calendar calendar, Integer vcalendarId) {
+	public IcsParam differ(Calendar calendar, Integer vcalendarId) {
 		ComponentList<CalendarComponent> components = calendar.getComponents();
 		List<IcsComponentDomain> after = new ArrayList<IcsComponentDomain>();
 		for (CalendarComponent component : components) {
