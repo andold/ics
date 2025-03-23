@@ -93,7 +93,7 @@ public class CrawlNaverJob implements JobInterface {
 		long started = System.currentTimeMillis();
 
 		try {
-			ChromeDriverWrapper driver = driver(true);
+			ChromeDriverWrapper driver = driver(false);
 
 			if (notBackupNaver(driver)) {
 				navigateBackupNaver(driver);

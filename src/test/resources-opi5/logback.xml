@@ -38,10 +38,6 @@
 		</encoder>
 	</appender>
 
-	<logger name="org.hibernate.SQL" additivity="false" level="warn">
-		<appender-ref ref="console" />
-		<appender-ref ref="ics" />
-	</logger>
 	<logger name="kr.andold.ics" additivity="false" level="debug">
 		<appender-ref ref="console" />
 		<appender-ref ref="ics" />
