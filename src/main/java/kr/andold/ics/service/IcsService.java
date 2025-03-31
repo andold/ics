@@ -71,7 +71,7 @@ public class IcsService {
 
 	
 	public IcsParam upload(MultipartFile file, Integer vcalendarId) {
-		log.info("{} upload({})", Utility.indentStart(), Utility.toStringJson(file, 64));
+		log.info("{} upload(..., {})", Utility.indentStart(), vcalendarId);
 		long started = System.currentTimeMillis();
 
 		try {
@@ -81,7 +81,10 @@ public class IcsService {
 				case "text/calendar":
 					CalendarBuilder builder = new CalendarBuilder();
 					Calendar calendar = builder.build(new StringReader(text));
-					return differ(calendar, vcalendarId);
+					IcsParam result = differ(calendar, vcalendarId);
+
+					log.info("{} {} - upload(..., {}) - {}", Utility.indentEnd(), result, vcalendarId, Utility.toStringPastTimeReadable(started));
+					return result;
 				case "application/json":
 					break;
 
@@ -94,9 +97,8 @@ public class IcsService {
 			log.error("ParserException:: {}", e.getLocalizedMessage(), e);
 		}
 
-		Object result = null;
-		log.info("{} {} - upload({}) - {}", Utility.indentEnd(), result, Utility.toStringJson(file, 32), Utility.toStringPastTimeReadable(started));
-		return (IcsParam)result;
+		log.info("{} {} - upload({}) - {}", Utility.indentEnd(), null, Utility.toStringJson(file, 32), Utility.toStringPastTimeReadable(started));
+		return null;
 	}
 
 	public IcsParam differ(Calendar calendar, Integer vcalendarId) {
