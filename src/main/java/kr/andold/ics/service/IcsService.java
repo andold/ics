@@ -55,21 +55,6 @@ public class IcsService {
 		userDataPath = value;
 	}
 
-	@Getter private static String userSeleniumWebdriverChromeDriver;
-	@Value("${user.selenium.webdriver.chrome.driver}")
-	public void setUserSeleniumWebdriverChromeDriver(String value) {
-		log.info("{} setUserSeleniumWebdriverChromeDriver(『{}』)", Utility.indentMiddle(), value);
-		userSeleniumWebdriverChromeDriver = value;
-	}
-
-	@Getter private static String userSeleniumUserDataDir;
-	@Value("${user.selenium.user.data.dir}")
-	public void setUserSeleniumUserDataDir(String value) {
-		log.info("{} setUserSeleniumUserDataDir(『{}』)", Utility.indentMiddle(), value);
-		userSeleniumUserDataDir = value;
-	}
-
-	
 	public IcsParam upload(MultipartFile file, Integer vcalendarId) {
 		log.info("{} upload(..., {})", Utility.indentStart(), vcalendarId);
 		long started = System.currentTimeMillis();
