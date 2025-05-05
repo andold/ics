@@ -17,7 +17,7 @@ plugins {
 }
 
 ext {
-	lombokVersion = "1.18.24"
+	lombokVersion = "1.18.30"
 }
 
 apply plugin: "org.springframework.boot"
@@ -29,9 +29,8 @@ war.enabled = true
 group = "kr.andold.ics"
 version = "0.0.1-SNAPSHOT"
 
-//	compatible gradle 7.5
-sourceCompatibility = 18
-targetCompatibility = 18
+sourceCompatibility = 21
+targetCompatibility = 21
 
 repositories {
 	mavenCentral()
@@ -46,15 +45,15 @@ repositories {
 }
 
 dependencies {
+	implementation("kr.andold:utils:0.0.7-SNAPSHOT")
 	implementation("org.apache.zookeeper:zookeeper:3.9.3")
 	implementation("org.postgresql:postgresql:42.7.4")
-	implementation("kr.andold:utils:0.0.6-SNAPSHOT")
  	implementation("com.github.usingsky:KoreanLunarCalendar:0.3.1")
  	implementation("org.mnode.ical4j:ical4j:3.2.10")
 
 	implementation("org.jsoup:jsoup:1.15.3")
 	implementation("org.hibernate:hibernate-jpamodelgen:6.1.7.Final")
-	implementation("org.springframework.boot:spring-boot:3.2.5")
+	implementation("org.springframework.boot:spring-boot:3.2.4")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -127,7 +126,7 @@ compileJava.dependsOn copyWebApp
 */
 
 node {
-	version = "19.1.0"
+	version = "20.17.0"
 	npmVersion = "9.1.2"
 	download = true
 	nodeProjectDir = file("$webappDir")

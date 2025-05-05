@@ -41,7 +41,7 @@ public class ScheduledTasks {
 		log.trace("{} minutely()", Utility.indentStart());
 		long started = System.currentTimeMillis();
 
-		jobService.status();
+		jobService.status(zookeeperClient.status(true));
 
 		log.trace("{} minutely() - {}", Utility.indentEnd(), Utility.toStringPastTimeReadable(started));
 	}
@@ -49,7 +49,7 @@ public class ScheduledTasks {
 	// 매시마다
 	@Scheduled(cron = "1 0 * * * *")
 	public void hourly() {
-		if (ZookeeperClient.isMaster()) {
+		if (zookeeperClient.isMaster()) {
 			
 		}
 	}
@@ -57,7 +57,7 @@ public class ScheduledTasks {
 	// 매일
 	@Scheduled(cron = "0 0 0 * * *")
 	public void daily() {
-		if (ZookeeperClient.isMaster()) {
+		if (zookeeperClient.isMaster()) {
 			JobService.getQueue2().offer(BackupJob.builder().dataPath(IcsService.getUserDataPath()).build());
 		}
 	}
