@@ -6,7 +6,7 @@
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<charset>UTF-8</charset>
-			<Pattern>TH %d{HH:mm:ss} [%-5level] %-40.40logger{40} :%4line %msg%n</Pattern>
+			<Pattern>%d{HH:mm:ss} [%-5level] %-40.40logger{40} :%4line %msg%n</Pattern>
 		</encoder>
 	</appender>
 	<appender name="general" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -20,7 +20,7 @@
 		</triggeringPolicy>
 		<encoder>
 			<charset>UTF-8</charset>
-			<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %-64.64logger{64} :%4line %msg%n</Pattern>
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %-40.40logger{40} :%4line %msg%n</Pattern>
 		</encoder>
 	</appender>
 	<appender name="ics" class="ch.qos.logback.core.rolling.RollingFileAppender">
