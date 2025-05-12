@@ -26,7 +26,7 @@ git	log --pretty=format:"%h - %an, %ai:%ar : %s" -8
 cp	$SOURCE_DIR/src/main/resources-$PROFILE/$DEPLOY_SCRIPT_FILE_NAME	$DEPLOY_DIR
 #
 #
-cd	$DEPLOY_DIR
-chmod	a+x $DEPLOY_SCRIPT_FILE_NAME
+cd $DEPLOY_DIR
+chmod a+x $DEPLOY_SCRIPT_FILE_NAME
 bash $DEPLOY_SCRIPT_FILE_NAME
 #
