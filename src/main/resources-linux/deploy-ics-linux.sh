@@ -84,6 +84,7 @@ cd	$SOURCE_DIR/src/main/frontend
 npm install --no-bin-links --force
 npm audit fix --force
 npm install react-scripts@latest --save
+npm install ajv@^7 --save
 #
 #
 cd	$SOURCE_DIR
